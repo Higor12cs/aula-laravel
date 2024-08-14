@@ -1,0 +1,71 @@
+<x-app title="Novo Aluno">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center">Novo Aluno</h1>
+
+            <div class="d-flex justify-content-center my-4">
+                <a href="{{ route('students.index') }}" class="btn btn-secondary">Voltar</a>
+            </div>
+
+            <div class="card">
+                <div class="card-body">
+                    <form action="{{ route('students.store') }}" method="post">
+                        @csrf
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nome</label>
+                            <input type="text" class="form-control @error('name') is-invalid @enderror"
+                                id="name" name="name" value="{{ old('name') }}">
+                            @error('name')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="linkedin" class="form-label">Linkedin</label>
+                            <input type="text" class="form-control @error('linkedin') is-invalid @enderror"
+                                id="linkedin" name="linkedin" value="{{ old('linkedin') }}">
+                            @error('linkedin')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="github" class="form-label">GitHub</label>
+                            <input type="text" class="form-control @error('github') is-invalid @enderror"
+                                id="github" name="github" value="{{ old('github') }}">
+                            @error('github')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="course_id" class="form-label">Curso</label>
+                            <select class="form-select @error('course_id') is-invalid @enderror" name="course_id">
+                                <option value="">-</option>
+                                @foreach ($courses as $course)
+                                    <option value="{{ $course->id }}" @selected(old('course_id') == $course->id)>{{ $course->name }}</option>
+                                @endforeach
+                            </select>
+                            @error('course_id')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+
+                        <div class="d-flex justify-content-center">
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app>
